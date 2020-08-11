@@ -1,10 +1,10 @@
 #
 # define display information
 #
-name: Method Name Here
+name: TranSyT functions annotation
 
 tooltip: |
-    Perform some kind of method
+    Annotation of transporter genes' product
 
 screenshots: []
 
@@ -16,25 +16,99 @@ icon: icon.png
 suggestions:
     apps:
         related:
-            [app1, app2]
+            []
         next:
-            [app3, app4]
+            []
 
 #
 # Configure the display and description of parameters
 #
 parameters :
-    parameter_1 :
+    genome_id :
         ui-name : |
-            First parameter
+            Genome
         short-hint : |
-            The first parameter
-        long-hint  : |
-            The first parameter that needs to be entered to drive the method. This might be the first of many.
+            TranSyT assings the reactions to the model based on the genome
+    model_id :
+        ui-name : |
+            Model
+        short-hint : |
+            Metabolic model to extract the compounds already present in the model
+        long-hint: |
+            The metabolic model is used to filter reactions that may contain compounds that are not present. If
+            not provided, a large set of false positives may be assigned to the model.
+    output_name:
+        ui-name: |
+            Output name
+        short-hint: |
+            Name of the output object to create
+    auto_accept_evalue:
+        ui-name: |
+            E-value threshold to automatically accept hits
+        short-hint: |
+            The value below which all hits are accepted as possible transporters
+        long-hint: |
+            Used in TranSyT's 'auto accept' method. This does not take the taxonomy of the BLAST hits into account,
+             due to the high similarity with the query sequence. All reactions available in TranSyT’s internal database
+            associated with TCDB entries that comply with the the specified conditions, will be assigned to the
+            respective genes.
+    override_ontologies_filter:
+        ui-name: |
+            Override ontologies filter
+        short-hint: |
+            Override the default filter that only accepts compounds with common ontologies
+        long-hint: |
+            If checked, overrides the ontologies filter that searches only the common hierarquical descendants described in TCDB for
+            the TC number and TC family.
+    blast_evalue_threshold:
+        ui-name: |
+            Blast E-value threshold
+        short-hint: |
+            Blast E-value threshold
+        long-hint: |
+            Parameter '-evalue' of the NCBI Blast+ software
+    bitscore_threshold:
+        ui-name: |
+            Blast bit score threshold
+        short-hint: |
+            Paramenter used to filter the results of the NCBI Blast+ software
+    query_coverage_threshold:
+        ui-name: |
+            Blast minimum query coverage threshold
+        short-hint: |
+            Paramenter used to filter the results of the NCBI Blast+ software
+    similarity_score:
+        ui-name: |
+            Blast similarity score
+        short-hint: |
+            Paramenter used to filter the results of the NCBI Blast+ software
+    alpha:
+        ui-name: |
+            Reactions annotation alpha value
+        short-hint: |
+            Paramenter used to balance the weight between frenquency and taxonomy scores
+    beta:
+        ui-name: |
+            Reactions annotation beta value
+        short-hint: |
+            Penalty of reactions that are associated to a low number of homologous genes (used in taxonomy score)
+    minimum_hits_penalty:
+        ui-name: |
+            Reactions annotation minimum hits penalty
+        short-hint: |
+            Minimum hits to avoid penalty in taxonomy score calculations
+    score_threshold:
+        ui-name: |
+            Reactions annotation score threshold
+        short-hint: |
+            Score above which a reaction is accepted
+    alpha_families:
+        ui-name: |
+            TC families annotation alpha value
+        short-hint: |
+            Paramenter used to balance the weight between frenquency and similarity scores
+
 
 description : |
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pulvinar efficitur felis, quis tincidunt sem congue at. Vivamus ornare feugiat faucibus. Fusce tincidunt mattis nunc, nec varius purus convallis quis. Nulla facilisi. In at magna dolor. Suspendisse sit amet felis at arcu auctor dapibus vitae pharetra dui. Nam semper mi quis tortor fermentum mollis. Donec a arcu pharetra, rutrum dolor vitae, rutrum mauris. Donec ornare fringilla sagittis. Nam laoreet est in elementum malesuada. Vestibulum id mi eget urna hendrerit feugiat. Donec et ultrices nulla. Phasellus diam eros, dapibus at tempus nec, semper vel ante.</p>
-
-    <p>Curabitur auctor, metus at tristique euismod, odio elit tincidunt neque, a facilisis sem massa convallis dolor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc ut hendrerit tellus. Nunc lacinia laoreet finibus. Etiam vitae sagittis enim. Fusce consectetur porta est eu pretium. In hac habitasse platea dictumst. Integer pellentesque sit amet sapien id venenatis. Nullam ac risus at orci eleifend aliquet. Vestibulum elit purus, euismod a nibh quis, pellentesque semper leo. Curabitur ullamcorper felis hendrerit nunc egestas, sit amet pharetra sapien porttitor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas hendrerit ipsum a ligula aliquet vestibulum. Duis a ante urna. Aenean ante neque, rhoncus id luctus ut, accumsan vel nunc.</p>
-
-    <p>Pellentesque accumsan aliquet magna, id consectetur tellus condimentum eu. Suspendisse elit dui, ornare ac leo eget, tincidunt feugiat orci. Maecenas auctor gravida lacinia. Mauris interdum nisi vel gravida varius. Nullam tempus, purus eget posuere aliquet, odio elit semper massa, quis facilisis massa odio vitae lacus. Fusce varius enim a mi vehicula tempus. Maecenas faucibus tellus ipsum, at venenatis ipsum auctor et. Suspendisse sem mi, dignissim id porta efficitur, auctor eget magna. Vivamus varius purus nulla, porttitor euismod lorem cursus quis. Nulla sit amet eros nec sem ultrices pulvinar.</p>
+    <p>The Transport Systems Tracker (TranSyT) is a tool to identify transport systems and the compounds carried
+    across membranes, based on the annotations of the Transporter Classification Database (TCDB).</p>

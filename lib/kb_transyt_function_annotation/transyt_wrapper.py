@@ -121,7 +121,8 @@ class transyt_wrapper:
             if gene in dic:
                 entry["ontology_terms"]["TranSyT"] = dic[gene]
 
-        return self.genome
+        self.kbase.save_object(self.params['genome_id'], self.ws, "KBaseGenomes.Genome", self.genome)
+
 
 
     def deploy_neo4j_database(self):
