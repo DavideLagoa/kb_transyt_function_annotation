@@ -1,10 +1,10 @@
 #
 # define display information
 #
-name: TranSyT functions annotation
+name: TranSyT TC numbers annotation
 
 tooltip: |
-    Annotation of transporter genes' product
+    Annotation of genes' possible TC numbers
 
 screenshots: []
 
@@ -29,19 +29,6 @@ parameters :
             Genome
         short-hint : |
             TranSyT assings the reactions to the model based on the genome
-    model_id :
-        ui-name : |
-            Model
-        short-hint : |
-            Metabolic model to extract the compounds already present in the model
-        long-hint: |
-            The metabolic model is used to filter reactions that may contain compounds that are not present. If
-            not provided, a large set of false positives may be assigned to the model.
-    output_name:
-        ui-name: |
-            Output name
-        short-hint: |
-            Name of the output object to create
     auto_accept_evalue:
         ui-name: |
             E-value threshold to automatically accept hits
@@ -52,14 +39,23 @@ parameters :
              due to the high similarity with the query sequence. All reactions available in TranSyT’s internal database
             associated with TCDB entries that comply with the the specified conditions, will be assigned to the
             respective genes.
-    override_ontologies_filter:
+    percent_accept:
         ui-name: |
-            Override ontologies filter
+            Percentage top blast results acceptance
         short-hint: |
-            Override the default filter that only accepts compounds with common ontologies
+            Percentage of top blast results that should be accepted
         long-hint: |
-            If checked, overrides the ontologies filter that searches only the common hierarquical descendants described in TCDB for
-            the TC number and TC family.
+            Percentage of top blast results between thresholds that should be accepted for each query gene.
+    limit_evalue_accept:
+        ui-name: |
+            E-value threshold lower threshold method-1
+        short-hint: |
+            The value above which all results should be disregarded by method-1.
+        long-hint: |
+            Used in TranSyT's 'auto accept' method. This does not take the taxonomy of the BLAST hits into account,
+            due to the high similarity with the query sequence. All reactions available in TranSyT’s internal database
+            associated with TCDB entries that comply with the the specified conditions, will be assigned to the
+            respective genes.
     blast_evalue_threshold:
         ui-name: |
             Blast E-value threshold
@@ -82,26 +78,6 @@ parameters :
             Blast similarity score
         short-hint: |
             Paramenter used to filter the results of the NCBI Blast+ software
-    alpha:
-        ui-name: |
-            Reactions annotation alpha value
-        short-hint: |
-            Paramenter used to balance the weight between frenquency and taxonomy scores
-    beta:
-        ui-name: |
-            Reactions annotation beta value
-        short-hint: |
-            Penalty of reactions that are associated to a low number of homologous genes (used in taxonomy score)
-    minimum_hits_penalty:
-        ui-name: |
-            Reactions annotation minimum hits penalty
-        short-hint: |
-            Minimum hits to avoid penalty in taxonomy score calculations
-    score_threshold:
-        ui-name: |
-            Reactions annotation score threshold
-        short-hint: |
-            Score above which a reaction is accepted
     alpha_families:
         ui-name: |
             TC families annotation alpha value
@@ -111,4 +87,5 @@ parameters :
 
 description : |
     <p>The Transport Systems Tracker (TranSyT) is a tool to identify transport systems and the compounds carried
-    across membranes, based on the annotations of the Transporter Classification Database (TCDB).</p>
+    across membranes, based on the annotations of the Transporter Classification Database (TCDB). This version
+    of the tool performs the annotation of the genes' possible TC numbers.</p>

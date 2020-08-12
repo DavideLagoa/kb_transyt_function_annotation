@@ -4,7 +4,7 @@
         "davide"
     ],
     "contact": ["dlagoa@anl.gov"],
-    "categories": ["active"],
+    "categories": ["active", "annotation"],
     "widgets": {
         "input": null,
         "output": "kbaseTabTable"
@@ -22,43 +22,34 @@
             }
         },
         {
-            "id": "model_id",
-            "optional": true,
-            "advanced": false,
-            "allow_multiple": false,
-            "default_values": [ "" ],
-            "field_type": "text",
-            "text_options": {
-                "valid_ws_types": [ "KBaseFBA.FBAModel" ]
-            }
-        },
-        {
-            "id": "output_name",
+            "id": "auto_accept_evalue",
             "optional": false,
-            "advanced": false,
+            "advanced": true,
             "allow_multiple": false,
-            "default_values": [ "" ],
+            "default_values": [ "0" ],
             "field_type": "text"
         },
         {
-            "id": "auto_accept_evalue",
+            "id": "percent_accept",
+            "optional": false,
+            "advanced": true,
+            "allow_multiple": false,
+            "default_values": [ "10" ],
+            "field_type": "text",
+            "text_options" : {
+                "valid_ws_types": [],
+                "validate_as": "float",
+                "min_float": 0,
+                "max_float": 100
+            }
+        },
+        {
+            "id": "limit_evalue_accept",
             "optional": false,
             "advanced": true,
             "allow_multiple": false,
             "default_values": [ "1E-50" ],
             "field_type": "text"
-        },
-        {
-            "id": "override_ontologies_filter",
-            "optional": false,
-            "advanced": true,
-            "checkbox_options" : {
-                "unchecked_value" : "false",
-                "checked_value" : "true"
-            },
-            "allow_multiple": false,
-            "default_values": [ "0" ],
-            "field_type": "checkbox"
         },
         {
             "id": "blast_evalue_threshold",
@@ -109,60 +100,6 @@
             }
         },
         {
-            "id": "alpha",
-            "optional": false,
-            "advanced": true,
-            "allow_multiple": false,
-            "default_values": [ "0.8" ],
-            "field_type": "text",
-            "text_options" : {
-                "valid_ws_types": [],
-                "validate_as": "float",
-                "min_float": 0,
-                "max_float": 1
-            }
-        },
-        {
-            "id": "beta",
-            "optional": false,
-            "advanced": true,
-            "allow_multiple": false,
-            "default_values": [ "0.3" ],
-            "field_type": "text",
-            "text_options" : {
-                "valid_ws_types": [],
-                "validate_as": "float",
-                "min_float": 0,
-                "max_float": 1
-            }
-        },
-        {
-            "id": "minimum_hits_penalty",
-            "optional": false,
-            "advanced": true,
-            "allow_multiple": false,
-            "default_values": [ "2" ],
-            "field_type": "text",
-            "text_options": {
-                "validate_as": "int",
-                "min_integer" : 0
-            }
-        },
-        {
-            "id": "score_threshold",
-            "optional": false,
-            "advanced": true,
-            "allow_multiple": false,
-            "default_values": [ "0.5" ],
-            "field_type": "text",
-            "text_options" : {
-                "valid_ws_types": [],
-                "validate_as": "float",
-                "min_float": 0,
-                "max_float": 1
-            }
-        },
-        {
             "id": "alpha_families",
             "optional": false,
             "advanced": true,
@@ -193,17 +130,14 @@
                     "input_parameter": "genome_id",
                     "target_property": "genome_id"
                 },{
-                    "input_parameter": "model_id",
-                    "target_property": "model_id"
-                },{
-                    "input_parameter": "output_name",
-                    "target_property": "output_name"
-                },{
                     "input_parameter": "auto_accept_evalue",
                     "target_property": "auto_accept_evalue"
                 },{
-                    "input_parameter": "override_ontologies_filter",
-                    "target_property": "override_ontologies_filter"
+                    "input_parameter": "percent_accept",
+                    "target_property": "percent_accept"
+                },{
+                    "input_parameter": "limit_evalue_accept",
+                    "target_property": "limit_evalue_accept"
                 },{
                     "input_parameter": "blast_evalue_threshold",
                     "target_property": "blast_evalue_threshold"
@@ -216,18 +150,6 @@
                 },{
                     "input_parameter": "similarity_score",
                     "target_property": "similarity"
-                },{
-                    "input_parameter": "alpha",
-                    "target_property": "alpha"
-                },{
-                    "input_parameter": "beta",
-                    "target_property": "beta"
-                },{
-                    "input_parameter": "minimum_hits_penalty",
-                    "target_property": "minimum_hits_penalty"
-                },{
-                    "input_parameter": "score_threshold",
-                    "target_property": "score_threshold"
                 },{
                     "input_parameter": "alpha_families",
                     "target_property": "alpha_families"
