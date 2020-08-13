@@ -56,7 +56,7 @@
             "optional": false,
             "advanced": true,
             "allow_multiple": false,
-            "default_values": [ "1" ],
+            "default_values": [ "1E-20" ],
             "field_type": "text"
         },
         {
