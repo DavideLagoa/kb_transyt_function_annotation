@@ -51,23 +51,26 @@ class kb_transyt_function_annotation:
         # ctx is the context object
         # return variables are: output
         #BEGIN run_kb_transyt_function_annotation
-        '''
+
+
+
+        print(params)
+        print()
+        print(self.config)
+
+        #transyt_process = tw.transyt_wrapper(token=ctx['token'], params=params, config=self.config,
+        #                                     callbackURL=self.callback_url)
+        #transyt_process.run_transyt()
+        #output = transyt_process.process_output()
+
         report = KBaseReport(self.callback_url)
-        report_info = report.create({'report': {'objects_created':[],
+        report_info = report.create({'report': {'objects_created': [],
                                                 'text_message': params['parameter_1']},
-                                                'workspace_name': params['workspace_name']})
+                                     'workspace_name': params['workspace_name']})
         output = {
             'report_name': report_info['name'],
             'report_ref': report_info['ref'],
         }
-        '''
-        print(params)
-
-        transyt_process = tw.transyt_wrapper(token=ctx['token'], params=params, config=self.config,
-                                             callbackURL=self.callback_url)
-        transyt_process.run_transyt()
-        output = transyt_process.process_output()
-
 
         #END run_kb_transyt_function_annotation
 
