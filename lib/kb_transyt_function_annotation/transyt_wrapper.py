@@ -128,16 +128,9 @@ class transyt_wrapper:
         else:
             genome["ontologies_present"] = {self.ontology_key: ontologies_present}
 
-    def run_transyt(self, model_obj_name = None, genome_obj_name = None, narrative_id = None):
+    def run_transyt(self):
 
-        if self.ws is None:
-            self.ws = narrative_id
-
-        if narrative_id is None:
-            self.ws = self.params['workspace_name']
-            self.genome = self.kbase.get_object(self.params['genome_id'], self.ws)
-        else:
-            self.genome = self.retrieve_test_data(model_obj_name, genome_obj_name, narrative_id)
+        self.genome = self.kbase.get_object(self.params['genome_id'], self.params['workspace_name'])
 
         if not os.path.exists(self.inputs_path):
             os.makedirs(self.inputs_path)
@@ -158,16 +151,6 @@ class transyt_wrapper:
         print("jar process finished! exit code: " + str(exit_code))
 
         return exit_code
-
-    def retrieve_test_data(self, model_obj_name, genome_obj_name, narrative_id):
-
-        if self.params is None:
-            self.params = {'genome_id': genome_obj_name}
-
-        genome = self.kbase.get_object(genome_obj_name, narrative_id)
-
-        return genome
-
 
     def inputs_preprocessing(self, genome):
 
@@ -206,22 +189,20 @@ class transyt_wrapper:
 
         self.download_ontology_data()
 
-        genome = self.kbase.get_object(self.params["genome_id"], self.params['workspace_name'])
-
         sso_event = self.make_sso_ontology_event()
         ontology_event_index = 0
 
         go = True
 
-        if 'ontology_events' in genome:
-            for previous_event in genome['ontology_events']:
+        if 'ontology_events' in self.genome:
+            for previous_event in self.genome['ontology_events']:
                 if sso_event["description"] == previous_event["description"]:
                     go = False
             if go:
-                genome['ontology_events'].append(sso_event)
-                ontology_event_index += len(genome['ontology_events']) - 1
+                self.genome['ontology_events'].append(sso_event)
+                ontology_event_index += len(self.genome['ontology_events']) - 1
         else:
-            genome['ontology_events'] = [sso_event]
+            self.genome['ontology_events'] = [sso_event]
 
         ontologies_present = {}
 
@@ -233,7 +214,7 @@ class transyt_wrapper:
         if go:
             results = self.get_genes_annotations()
 
-            for feature in genome['features']:
+            for feature in self.genome['features']:
                 if feature["id"] in results.keys():
                     for tc in results[feature["id"]]:
                         if "ontology_terms" not in feature:
@@ -251,10 +232,10 @@ class transyt_wrapper:
                         if tc not in ontologies_present:
                             ontologies_present[tc] = self.ontologies_data[tc]["name"]
 
-            self.save_ontologies_present(genome, ontologies_present)
+            self.save_ontologies_present(self.genome, ontologies_present)
 
             self.kbase.save_object(self.params["genome_id"], self.params['workspace_name'],
-                                   "KBaseGenomes.Genome", genome)
+                                   "KBaseGenomes.Genome", self.genome)
 
             shared_results_file = self.shared_folder + "/" + self.params["genome_id"] + "tc_numbers.txt"
             shutil.copyfile(self.results_path, shared_results_file)
