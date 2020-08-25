@@ -249,9 +249,10 @@ class transyt_wrapper:
                             "database version.")
 
         objects_created = []
-        report_info = kb_transyt_report.generate_report(shared_results_file, warnings, new_annotations, objects_created,
+        report_path = self.shared_folder + "/report.html"
+        report_info = kb_transyt_report.generate_report(report_path, warnings, new_annotations, objects_created,
                                                         self.callback_url, self.params['workspace_name'],
-                                                        self.params["genome_id"], self.results_path,
+                                                        self.params["genome_id"], shared_results_file,
                                                         self.report_template_html)
         output = {
             'report_name': report_info['name'],
