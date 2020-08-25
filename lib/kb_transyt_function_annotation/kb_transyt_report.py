@@ -38,7 +38,7 @@ def generate_html_file(report_path, results, html_template_path):
 
     html = html + "<table id='myTable" + str(object_id) + "' class='tg'><thead><tr><h3>List of genes with new" \
                                                           " TC number annotations.</h3></tr>\n"
-    html = html + search_bar_placeholder + "<tr><th class='tg-i1re'>Feature ID</th>\
+    html = html + search_bar_placeholder + "<tr><th class='tg-i1re'>Feature_ID</th>\
     <th class='tg-i1re'>Annotation</th></tr></thead><tbody>"
     html = html + build_html_table(results)
 
