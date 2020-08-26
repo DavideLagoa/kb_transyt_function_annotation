@@ -41,8 +41,8 @@ class transyt_wrapper:
         else:
             self.ws_client = workspaceService("https://kbase.us/services/ws/")
 
-        if deploy_database:
-            self.deploy_neo4j_database()
+        #if deploy_database:
+        #    self.deploy_neo4j_database()
 
     '''
     def run_test(self, genome_id, narrative_id):
@@ -135,6 +135,8 @@ class transyt_wrapper:
             os.makedirs(self.inputs_path)
 
         self.inputs_preprocessing(self.genome)
+
+        self.deploy_neo4j_database()
 
         transyt_subprocess = subprocess.Popen([self.java, "-jar", "--add-exports",
                                                "java.base/jdk.internal.misc=ALL-UNNAMED",
