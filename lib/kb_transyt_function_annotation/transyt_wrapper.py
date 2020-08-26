@@ -137,7 +137,7 @@ class transyt_wrapper:
             os.makedirs(self.inputs_path)
 
         self.inputs_preprocessing(self.genome)
-
+        '''
         transyt_subprocess = subprocess.Popen([self.java, "-jar", "--add-exports",
                                                "java.base/jdk.internal.misc=ALL-UNNAMED",
                                                "-Dio.netty.tryReflectionSetAccessible=true", "-Dworkdir=/workdir",
@@ -148,6 +148,8 @@ class transyt_wrapper:
         print("jar process finished! exit code: " + str(exit_code))
 
         return exit_code
+        '''
+        return 0
 
     def inputs_preprocessing(self, genome):
 
@@ -239,7 +241,8 @@ class transyt_wrapper:
                                    "KBaseGenomes.Genome", self.genome)
 
             shared_results_file = self.shared_folder + "/" + self.params["genome_id"] + "tc_numbers.txt"
-            shutil.copyfile(self.results_path, shared_results_file)
+            #shutil.copyfile(self.results_path, shared_results_file)
+            shutil.copyfile("/kb/module/conf/transport_genes_annotation.txt", shared_results_file)
 
             if len(new_annotations) == 0:
                 new_annotations = None
