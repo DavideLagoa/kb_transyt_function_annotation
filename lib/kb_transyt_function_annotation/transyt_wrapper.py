@@ -35,6 +35,8 @@ class transyt_wrapper:
         self.ontologies_data = None
         self.ontologies_data_version = None
 
+        self.deploy_neo4j_database()
+
         if self.config is not None:
             self.kbase = cobrakbase.KBaseAPI(token, config=self.config)
             self.ws_client = workspaceService(config["workspace-url"])
@@ -135,8 +137,6 @@ class transyt_wrapper:
             os.makedirs(self.inputs_path)
 
         self.inputs_preprocessing(self.genome)
-
-        self.deploy_neo4j_database()
 
         transyt_subprocess = subprocess.Popen([self.java, "-jar", "--add-exports",
                                                "java.base/jdk.internal.misc=ALL-UNNAMED",
