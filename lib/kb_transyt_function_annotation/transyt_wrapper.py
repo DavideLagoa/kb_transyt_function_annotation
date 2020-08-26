@@ -20,7 +20,6 @@ class transyt_wrapper:
         self.callback_url = callbackURL
         self.shared_folder = shared_folder
         self.inputs_path = '/workdir/processingDir/'
-        self.results_path = '/workdir/resultsDir/'
         self.java = '/opt/jdk/jdk-11.0.1/bin/java'
         self.transyt_jar = '/opt/transyt/transyt.jar'
         self.results_path = self.inputs_path + "results/transport_genes_annotation.txt"
@@ -240,10 +239,13 @@ class transyt_wrapper:
             shared_results_file = self.shared_folder + "/" + self.params["genome_id"] + "tc_numbers.txt"
             shutil.copyfile(self.results_path, shared_results_file)
             #shutil.copyfile("/kb/module/conf/transport_genes_annotation.txt", shared_results_file)
+            print(os.system("ls " + self.shared_folder))
 
             if len(new_annotations) == 0:
                 new_annotations = None
                 warnings.append("TranSyT was not able to find new annotations using the provided set of parameters.")
+        else:
+            new_annotations = None
 
         if not go:
             warnings.append("TranSyT was already executed using the provided set of parameters for the same "
