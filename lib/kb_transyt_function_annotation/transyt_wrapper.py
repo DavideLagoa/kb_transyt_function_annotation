@@ -8,6 +8,7 @@ from installed_clients.WorkspaceClient import Workspace as workspaceService
 import kb_transyt_report
 import shutil
 
+
 class transyt_wrapper:
 
     def __init__(self, token=None, params=None, config=None, deploy_database=True, callbackURL=None,
@@ -18,10 +19,8 @@ class transyt_wrapper:
         self.config = config
         self.callback_url = callbackURL
         self.shared_folder = shared_folder
-        #self.inputs_path = '/Users/davidelagoa/Desktop/test/processingDir/'
         self.inputs_path = '/workdir/processingDir/'
         self.results_path = '/workdir/resultsDir/'
-        #self.results_path = '/Users/davidelagoa/Desktop/test/resultsDir/'
         self.java = '/opt/jdk/jdk-11.0.1/bin/java'
         self.transyt_jar = '/opt/transyt/transyt.jar'
         self.results_path = self.inputs_path + "results/transport_genes_annotation.txt"
