@@ -43,6 +43,7 @@ class transyt_wrapper:
 
         if deploy_database:
             self.deploy_neo4j_database()
+            
     '''
     def run_test(self, genome_id, narrative_id):
 
