@@ -186,7 +186,6 @@ class transyt_wrapper:
                 f.write(key + "\t" + str(self.params[key]) + "\n")
 
             f.write('taxID' + "\t" + str(self.taxonomy_id) + "\n")
-            f.write('reference_database' + "\t" + self.ref_database)
             f.close()
 
     def process_output(self):
