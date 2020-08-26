@@ -141,7 +141,6 @@ class transyt_wrapper:
                                                "-Dio.netty.tryReflectionSetAccessible=true", "-Dworkdir=/workdir",
                                                "-Dlogback.configurationFile=/kb/module/conf/logback.xml",
                                                "-Xmx4096m", self.transyt_jar, "4", self.inputs_path])
-
         exit_code = transyt_subprocess.wait()
 
         print("jar process finished! exit code: " + str(exit_code))
