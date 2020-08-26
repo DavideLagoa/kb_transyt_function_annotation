@@ -137,6 +137,8 @@ class transyt_wrapper:
             os.makedirs(self.inputs_path)
 
         self.inputs_preprocessing(self.genome)
+
+        print(os.system("/opt/neo4j/neo4j-community-4.0.2/bin/neo4j status"))
         '''
         transyt_subprocess = subprocess.Popen([self.java, "-jar", "--add-exports",
                                                "java.base/jdk.internal.misc=ALL-UNNAMED",
@@ -306,7 +308,8 @@ class transyt_wrapper:
 
         dic = {}
 
-        for line in open(self.results_path, "r"):
+        #for line in open(self.results_path, "r"):
+        for line in open("/kb/module/conf/transport_genes_annotation.txt", "r"):
 
             if len(line.strip()) > 0:
 
