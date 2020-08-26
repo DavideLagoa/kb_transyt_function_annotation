@@ -320,3 +320,5 @@ class transyt_wrapper:
     def deploy_neo4j_database(self):
 
         subprocess.Popen(["/opt/neo4j/neo4j-community-4.0.2/bin/neo4j", "start"])
+        # give time to the database to initiate
+        time.sleep(15)
