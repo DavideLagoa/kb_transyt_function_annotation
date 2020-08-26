@@ -29,7 +29,6 @@ class transyt_wrapper:
         self.ontology_key = "transyt"
 
         self.taxonomy_id = None
-        self.scientific_lineage = None
         self.genome = None
         self.sso_ref = None
         self.kbase = None
@@ -154,11 +153,16 @@ class transyt_wrapper:
 
     def inputs_preprocessing(self, genome):
 
+        '''
         # detect taxa
         ref_data = self.kbase.get_object_info_from_ref(genome['taxon_ref'])
         ktaxon = self.kbase.get_object(ref_data.id, ref_data.workspace_id)
         self.scientific_lineage = ktaxon['scientific_lineage']
         self.taxonomy_id = ktaxon['taxonomy_id']
+        '''
+
+        # fix this
+        self.taxonomy_id = 83333
 
         self.genome_to_faa(genome)
         self.params_to_file()

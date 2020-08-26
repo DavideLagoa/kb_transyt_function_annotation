@@ -24,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/kb_transyt_function_annotation/transyt_wrapper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="254" column="101" selection-start-line="254" selection-start-column="101" selection-end-line="254" selection-end-column="101" />
+            <state relative-caret-position="231">
+              <caret line="163" column="18" selection-start-line="163" selection-start-column="18" selection-end-line="163" selection-end-column="18" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -106,6 +106,8 @@
       <find>test</find>
       <find>self.ws</find>
       <find>report.html</find>
+      <find>ref</find>
+      <find>self.scientific_lineage</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -434,8 +436,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/kb_transyt_function_annotation/transyt_wrapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="254" column="101" selection-start-line="254" selection-start-column="101" selection-end-line="254" selection-end-column="101" />
+        <state relative-caret-position="231">
+          <caret line="163" column="18" selection-start-line="163" selection-start-column="18" selection-end-line="163" selection-end-column="18" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
