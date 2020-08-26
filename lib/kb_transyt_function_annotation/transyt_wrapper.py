@@ -136,9 +136,6 @@ class transyt_wrapper:
 
         self.inputs_preprocessing(self.genome)
 
-        if not os.path.exists(self.results_path):
-            os.makedirs(self.results_path)
-
         transyt_subprocess = subprocess.Popen([self.java, "-jar", "--add-exports",
                                                "java.base/jdk.internal.misc=ALL-UNNAMED",
                                                "-Dio.netty.tryReflectionSetAccessible=true", "-Dworkdir=/workdir",
