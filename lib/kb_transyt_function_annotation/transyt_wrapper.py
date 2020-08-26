@@ -35,16 +35,14 @@ class transyt_wrapper:
         self.ontologies_data = None
         self.ontologies_data_version = None
 
-        self.deploy_neo4j_database()
+        if deploy_database:
+            self.deploy_neo4j_database()
 
         if self.config is not None:
             self.kbase = cobrakbase.KBaseAPI(token, config=self.config)
             self.ws_client = workspaceService(config["workspace-url"])
         else:
             self.ws_client = workspaceService("https://kbase.us/services/ws/")
-
-        #if deploy_database:
-        #    self.deploy_neo4j_database()
 
     '''
     def run_test(self, genome_id, narrative_id):
@@ -139,7 +137,7 @@ class transyt_wrapper:
         self.inputs_preprocessing(self.genome)
 
         print(os.system("/opt/neo4j/neo4j-community-4.0.2/bin/neo4j status"))
-        '''
+
         transyt_subprocess = subprocess.Popen([self.java, "-jar", "--add-exports",
                                                "java.base/jdk.internal.misc=ALL-UNNAMED",
                                                "-Dio.netty.tryReflectionSetAccessible=true", "-Dworkdir=/workdir",
@@ -150,8 +148,6 @@ class transyt_wrapper:
         print("jar process finished! exit code: " + str(exit_code))
 
         return exit_code
-        '''
-        return 0
 
     def inputs_preprocessing(self, genome):
 
@@ -178,7 +174,6 @@ class transyt_wrapper:
         with open(self.inputs_path + 'protein.faa', 'w') as f:
             f.write('\n'.join(faa_features))
             f.close()
-
 
     def params_to_file(self):
 
@@ -243,8 +238,8 @@ class transyt_wrapper:
                                    "KBaseGenomes.Genome", self.genome)
 
             shared_results_file = self.shared_folder + "/" + self.params["genome_id"] + "tc_numbers.txt"
-            #shutil.copyfile(self.results_path, shared_results_file)
-            shutil.copyfile("/kb/module/conf/transport_genes_annotation.txt", shared_results_file)
+            shutil.copyfile(self.results_path, shared_results_file)
+            #shutil.copyfile("/kb/module/conf/transport_genes_annotation.txt", shared_results_file)
 
             if len(new_annotations) == 0:
                 new_annotations = None
@@ -308,8 +303,8 @@ class transyt_wrapper:
 
         dic = {}
 
-        #for line in open(self.results_path, "r"):
-        for line in open("/kb/module/conf/transport_genes_annotation.txt", "r"):
+        for line in open(self.results_path, "r"):
+        #for line in open("/kb/module/conf/transport_genes_annotation.txt", "r"):
 
             if len(line.strip()) > 0:
 
@@ -321,7 +316,6 @@ class transyt_wrapper:
                 dic[gene] = tc_numbers
 
         return dic
-
 
     def deploy_neo4j_database(self):
 
