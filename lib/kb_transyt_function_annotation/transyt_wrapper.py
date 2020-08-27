@@ -158,7 +158,7 @@ class transyt_wrapper:
         self.taxonomy_id = ktaxon['taxonomy_id']
         '''
 
-        # fix this
+        # not important to this app, only needs to be valid
         self.taxonomy_id = 83333
 
         self.genome_to_faa(genome)
@@ -238,7 +238,7 @@ class transyt_wrapper:
 
             shared_results_file = self.shared_folder + "/" + self.params["genome_id"] + "tc_numbers.txt"
             shutil.copyfile(self.results_path, shared_results_file)
-            #shutil.copyfile("/kb/module/conf/transport_genes_annotation.txt", shared_results_file)
+
             print(os.system("ls " + self.shared_folder))
 
             if len(new_annotations) == 0:
@@ -259,7 +259,8 @@ class transyt_wrapper:
                                                         self.report_template_html)
         output = {
             'report_name': report_info['name'],
-            'report_ref': report_info['ref']
+            'report_ref': report_info['ref'],
+            'genome_id': self.params['genome_id']
         }
 
         return output

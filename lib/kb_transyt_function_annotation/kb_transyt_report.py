@@ -9,7 +9,6 @@ def generate_report(report_path, warnings, results, objects_created, callback_ur
 
     report_params = {
         'warnings': warnings,
-        'direct_html_link_index': 0,
         'workspace_name': ws_name,
         'report_object_name': 'run_transyt_annotation_' + uuid.uuid4().hex,
         'objects_created': objects_created,
@@ -17,6 +16,7 @@ def generate_report(report_path, warnings, results, objects_created, callback_ur
 
     if results is not None:
         generate_html_file(report_path, results, html_template_path)
+        report_params['direct_html_link_index'] = 0
         report_params['file_links'] = [{'name': genome_id + "_tc_numbers.txt", 'description': 'desc', 'path': file_path}]
         report_params['html_links'] = [{'name': 'report', 'description': 'Report HTML', 'path': report_path}]
 

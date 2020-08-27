@@ -86,6 +86,41 @@ parameters :
 
 
 description : |
-    <p>The Transport Systems Tracker (TranSyT) is a tool to identify transport systems and the compounds carried
-    across membranes, based on the annotations of the Transporter Classification Database (TCDB). This version
-    of the tool performs the annotation of the genes' possible TC numbers.</p>
+    <p>The Transport Systems Tracker (<i>TranSyT</i>) is a tool to identify transport systems and the compounds carried
+    across membranes, based on the annotations of the Transporter Classification Database (TCDB). In addition, this
+    tool also generates the respective transport reactions while providing the respective Gene-Protein-Reaction
+    associations. In this version of the tool, it is possible to annotate a genome with Transport Classification (TC)
+    numbers using information retrieved from <a href="http://www.tcdb.org/">TCDB</a>, a mebrane transport proteins'
+    database containing structural, functional, mechanistic, evolutionary and disease/medical information
+    about transport systems.</p>
+
+    <hr>
+
+    <p><i>TranSyT</i> TC numbers annotation tool takes a genome as input. A set of parameters can also be defined by the
+    user in order to change the stringency of the rules followed by the software. The effects of each parameter are
+    described at the <em>Parameters</em> section below.</p>
+
+    <p>KBase offers several ways to load genomes into your Narrative so that they can be used as one of the required
+    inputs for this and other Apps:
+       <ol>
+         <li>Upload your own data from your local machine.</li>
+         <li>Search for and add to your Narrative a genome from KBase&apos;s reference data collection.</li>
+         <li>Use example data from the Data Browser slideout.</li>
+         <li>Use a genome that you worked with in another Narrative or that another user has shared with you.</li>
+       </ol>
+    </p>
+
+    <hr>
+
+    <p><strong>Output Report</strong><br>Once the App finishes running, an output report is generated detailing the
+    results. There, it is possible to observe the TC numbers that were assigned to the genome. If it is not the first time
+    that the app is used for the same genome, only the new assignments will be displayed in the report. </p>
+
+    <p><strong>Genome Object Viewer</strong><br>In addition to the <em>Output Report</em>, an <em>Object Viewer</em> is
+     also generated displaying information about the TC numbers assigned to each gene on the <em>Ontology</em> column of the
+     <em>Browse Features</em> tab.</p>
+
+    <hr>
+
+    <p>For additional information about genomic annotation, visit the
+     <a href="https://docs.kbase.us/apps/analysis/assembly-and-annotation">Assembly and Annotation in KBase FAQ</a>.<p>
