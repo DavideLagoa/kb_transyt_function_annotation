@@ -36,15 +36,13 @@ parameters :
             The value below which all hits are accepted as possible transporters
         long-hint: |
             Used in TranSyT's 'auto accept' method. This does not take the taxonomy of the BLAST hits into account,
-             due to the high similarity with the query sequence. All reactions available in TranSyT’s internal database
+            due to the high similarity with the query sequence. All reactions available in TranSyT’s internal database
             associated with TCDB entries that comply with the the specified conditions, will be assigned to the
             respective genes.
     percent_accept:
         ui-name: |
             Percentage top blast results acceptance
         short-hint: |
-            Percentage of top blast results that should be accepted
-        long-hint: |
             Percentage of top blast results between thresholds that should be accepted for each query gene.
     limit_evalue_accept:
         ui-name: |
@@ -90,7 +88,7 @@ description : |
     across membranes, based on the annotations of the Transporter Classification Database (TCDB). In addition, this
     tool also generates the respective transport reactions while providing the respective Gene-Protein-Reaction
     associations. In this version of the tool, it is possible to annotate a genome with Transport Classification (TC)
-    numbers using information retrieved from <a href="http://www.tcdb.org/">TCDB</a>, a mebrane transport proteins'
+    numbers using information retrieved from <a href="http://www.tcdb.org/">TCDB</a>, a membrane transport proteins'
     database containing structural, functional, mechanistic, evolutionary and disease/medical information
     about transport systems.</p>
 
@@ -100,11 +98,11 @@ description : |
     user in order to change the stringency of the rules followed by the software. The effects of each parameter are
     described at the <em>Parameters</em> section below.</p>
 
-    <p>KBase offers several ways to load genomes into your Narrative so that they can be used as one of the required
+    <p>KBase offers several ways to load genomes into a Narrative so that they can be used as one of the required
     inputs for this and other Apps:
        <ol>
          <li>Upload your own data from your local machine.</li>
-         <li>Search for and add to your Narrative a genome from KBase&apos;s reference data collection.</li>
+         <li>Search for and add to the Narrative a genome from KBase&apos;s reference data collection.</li>
          <li>Use example data from the Data Browser slideout.</li>
          <li>Use a genome that you worked with in another Narrative or that another user has shared with you.</li>
        </ol>
