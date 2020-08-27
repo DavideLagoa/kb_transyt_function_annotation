@@ -112,7 +112,8 @@
                 "min_float": 0,
                 "max_float": 1
             }
-        },{
+        },
+        {
             "id": "output_genome",
             "optional": true,
             "advanced": false,

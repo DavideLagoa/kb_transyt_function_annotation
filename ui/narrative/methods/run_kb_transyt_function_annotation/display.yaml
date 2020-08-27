@@ -81,7 +81,7 @@ parameters :
             TC families annotation alpha value
         short-hint: |
             Paramenter used to balance the weight between frenquency and similarity scores
-    output_model:
+    output_genome:
         ui-name: |
             Genome output name
         short-hint: |
