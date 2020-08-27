@@ -204,6 +204,7 @@ class transyt_wrapper:
             self.genome['ontology_events'] = [sso_event]
 
         ontologies_present = {}
+        objects_created = []
 
         # used to build the report
         new_annotations = {}
@@ -233,9 +234,6 @@ class transyt_wrapper:
 
             self.save_ontologies_present(self.genome, ontologies_present)
 
-            self.kbase.save_object(self.params["genome_id"], self.params['workspace_name'],
-                                   "KBaseGenomes.Genome", self.genome)
-
             shared_results_file = self.shared_folder + "/" + self.params["genome_id"] + "tc_numbers.txt"
             shutil.copyfile(self.results_path, shared_results_file)
 
@@ -244,6 +242,19 @@ class transyt_wrapper:
             if len(new_annotations) == 0:
                 new_annotations = None
                 warnings.append("TranSyT was not able to find new annotations using the provided set of parameters.")
+            else:
+                object_id = self.params['genome_id']
+                description = "object new version created"
+
+                if self.params["output_genome"]:
+                    object_id = self.params["output_genome"]
+                    description = "new object created"
+
+                self.kbase.save_object(object_id, self.params['workspace_name'],
+                                       "KBaseGenomes.Genome", self.genome)
+
+                objects_created = [{'ref': f"{self.ws}/{object_id}",
+                                    'description': description}]
         else:
             new_annotations = None
 
@@ -251,7 +262,6 @@ class transyt_wrapper:
             warnings.append("TranSyT was already executed using the provided set of parameters for the same "
                             "database version.")
 
-        objects_created = []
         report_path = self.shared_folder + "/report.html"
         report_info = kb_transyt_report.generate_report(report_path, warnings, new_annotations, objects_created,
                                                         self.callback_url, self.params['workspace_name'],

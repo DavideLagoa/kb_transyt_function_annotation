@@ -28,15 +28,15 @@ parameters :
         ui-name : |
             Genome
         short-hint : |
-            TranSyT assings the reactions to the model based on the genome
+            <i>TranSyT</i> assings the reactions to the model based on the genome
     auto_accept_evalue:
         ui-name: |
             E-value threshold to automatically accept hits
         short-hint: |
             The value below which all hits are accepted as possible transporters
         long-hint: |
-            Used in TranSyT's 'auto accept' method. This does not take the taxonomy of the BLAST hits into account,
-            due to the high similarity with the query sequence. All reactions available in TranSyT’s internal database
+            Used in <i>TranSyT</i>'s 'auto accept' method. This does not take the taxonomy of the BLAST hits into account,
+            due to the high similarity with the query sequence. All reactions available in <i>TranSyT</i>’s internal database
             associated with TCDB entries that comply with the the specified conditions, will be assigned to the
             respective genes.
     percent_accept:
@@ -50,8 +50,8 @@ parameters :
         short-hint: |
             The value above which all results should be disregarded by method-1.
         long-hint: |
-            Used in TranSyT's 'auto accept' method. This does not take the taxonomy of the BLAST hits into account,
-            due to the high similarity with the query sequence. All reactions available in TranSyT’s internal database
+            Used in <i>TranSyT</i>'s 'auto accept' method. This does not take the taxonomy of the BLAST hits into account,
+            due to the high similarity with the query sequence. All reactions available in <i>TranSyT</i>’s internal database
             associated with TCDB entries that comply with the the specified conditions, will be assigned to the
             respective genes.
     blast_evalue_threshold:
@@ -81,6 +81,12 @@ parameters :
             TC families annotation alpha value
         short-hint: |
             Paramenter used to balance the weight between frenquency and similarity scores
+    output_model:
+        ui-name: |
+            Genome output name
+        short-hint: |
+            Parameter to introduce the name of the output genome object. When this field is empty, the genome used as input will
+            be replaced by the new one.
 
 
 description : |
@@ -113,10 +119,6 @@ description : |
     <p><strong>Output Report</strong><br>Once the App finishes running, an output report is generated detailing the
     results. There, it is possible to observe the TC numbers that were assigned to the genome. If it is not the first time
     that the app is used for the same genome, only the new assignments will be displayed in the report. </p>
-
-    <p><strong>Genome Object Viewer</strong><br>In addition to the <em>Output Report</em>, an <em>Object Viewer</em> is
-     also generated displaying information about the TC numbers assigned to each gene on the <em>Ontology</em> column of the
-     <em>Browse Features</em> tab.</p>
 
     <hr>
 
