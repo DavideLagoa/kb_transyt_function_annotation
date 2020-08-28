@@ -253,7 +253,7 @@ class transyt_wrapper:
                 self.kbase.save_object(object_id, self.params['workspace_name'],
                                        "KBaseGenomes.Genome", self.genome)
 
-                objects_created = [{'ref': f"{self.ws}/{object_id}",
+                objects_created = [{'ref': f"{self.params['workspace_name']}/{object_id}",
                                     'description': description}]
         else:
             new_annotations = None
