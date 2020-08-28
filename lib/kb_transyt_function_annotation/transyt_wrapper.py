@@ -33,6 +33,7 @@ class transyt_wrapper:
         self.ws_client = None
         self.ontologies_data = None
         self.ontologies_data_version = None
+        self.ontology_event_index = 0
 
         if deploy_database:
             self.deploy_neo4j_database()
@@ -135,6 +136,26 @@ class transyt_wrapper:
 
         self.inputs_preprocessing(self.genome)
 
+        self.download_ontology_data()
+
+        sso_event = self.make_sso_ontology_event()
+        self.ontology_event_index = 0
+
+        go = True
+
+        if 'ontology_events' in self.genome:
+            for previous_event in self.genome['ontology_events']:
+                if sso_event["description"] == previous_event["description"]:
+                    go = False
+            if go:
+                self.genome['ontology_events'].append(sso_event)
+                self.ontology_event_index += len(self.genome['ontology_events']) - 1
+        else:
+            self.genome['ontology_events'] = [sso_event]
+
+        if not go:
+            return -3
+
         print(os.system("/opt/neo4j/neo4j-community-4.0.2/bin/neo4j status"))
 
         transyt_subprocess = subprocess.Popen([self.java, "-jar", "--add-exports",
@@ -186,81 +207,56 @@ class transyt_wrapper:
 
     def process_output(self):
 
-        self.download_ontology_data()
-
-        sso_event = self.make_sso_ontology_event()
-        ontology_event_index = 0
-
-        go = True
-
-        if 'ontology_events' in self.genome:
-            for previous_event in self.genome['ontology_events']:
-                if sso_event["description"] == previous_event["description"]:
-                    go = False
-            if go:
-                self.genome['ontology_events'].append(sso_event)
-                ontology_event_index += len(self.genome['ontology_events']) - 1
-        else:
-            self.genome['ontology_events'] = [sso_event]
-
         ontologies_present = {}
         objects_created = []
 
         # used to build the report
         new_annotations = {}
         warnings = []
-        shared_results_file = ""
 
-        if go:
-            results = self.get_genes_annotations()
+        results = self.get_genes_annotations()
 
-            for feature in self.genome['features']:
-                if feature["id"] in results.keys():
-                    for tc in results[feature["id"]]:
-                        if "ontology_terms" not in feature:
-                            feature["ontology_terms"] = {self.ontology_key: {}}
+        for feature in self.genome['features']:
+            if feature["id"] in results.keys():
+                for tc in results[feature["id"]]:
+                    if "ontology_terms" not in feature:
+                        feature["ontology_terms"] = {self.ontology_key: {}}
 
-                        if tc in feature["ontology_terms"]["transyt"]:
-                            feature["ontology_terms"][self.ontology_key][tc].append(ontology_event_index)
-                        else:
-                            feature["ontology_terms"][self.ontology_key][tc] = [ontology_event_index]
+                    if tc in feature["ontology_terms"]["transyt"]:
+                        feature["ontology_terms"][self.ontology_key][tc].append(self.ontology_event_index)
+                    else:
+                        feature["ontology_terms"][self.ontology_key][tc] = [self.ontology_event_index]
 
-                            if feature["id"] not in new_annotations:
-                                new_annotations[feature["id"]] = []
-                            new_annotations[feature["id"]].append(tc + " - " + self.ontologies_data[tc]["name"])
+                        if feature["id"] not in new_annotations:
+                            new_annotations[feature["id"]] = []
+                        new_annotations[feature["id"]].append(tc + " - " + self.ontologies_data[tc]["name"])
 
-                        if tc not in ontologies_present:
-                            ontologies_present[tc] = self.ontologies_data[tc]["name"]
+                    if tc not in ontologies_present:
+                        ontologies_present[tc] = self.ontologies_data[tc]["name"]
 
-            self.save_ontologies_present(self.genome, ontologies_present)
+        self.save_ontologies_present(self.genome, ontologies_present)
 
-            shared_results_file = self.shared_folder + "/" + self.params["genome_id"] + "tc_numbers.txt"
-            shutil.copyfile(self.results_path, shared_results_file)
+        shared_results_file = self.shared_folder + "/" + self.params["genome_id"] + "tc_numbers.txt"
+        shutil.copyfile(self.results_path, shared_results_file)
 
-            print(os.system("ls " + self.shared_folder))
+        print(os.system("ls " + self.shared_folder))
 
-            if len(new_annotations) == 0:
-                new_annotations = None
-                warnings.append("TranSyT was not able to find new annotations using the provided set of parameters.")
-            else:
-                object_id = self.params['genome_id']
-                description = "object new version created"
-
-                if self.params["output_genome"]:
-                    object_id = self.params["output_genome"]
-                    description = "new object created"
-
-                self.kbase.save_object(object_id, self.params['workspace_name'],
-                                       "KBaseGenomes.Genome", self.genome)
-
-                objects_created = [{'ref': f"{self.params['workspace_name']}/{object_id}",
-                                    'description': description}]
-        else:
+        if len(new_annotations) == 0:
             new_annotations = None
+            warnings.append("TranSyT was not able to find new annotations using the provided set of parameters.")
+        else:
+            object_id = self.params['genome_id']
+            description = "object new version created"
 
-        if not go:
-            warnings.append("TranSyT was already executed using the provided set of parameters for the same "
-                            "database version.")
+            if self.params["output_genome"]:
+                object_id = self.params["output_genome"]
+                description = "new object created"
+
+            self.kbase.save_object(object_id, self.params['workspace_name'],
+                                   "KBaseGenomes.Genome", self.genome)
+
+            objects_created = [{'ref': f"{self.params['workspace_name']}/{object_id}",
+                                    'description': description}]
 
         report_path = self.shared_folder + "/report.html"
         report_info = kb_transyt_report.generate_report(report_path, warnings, new_annotations, objects_created,

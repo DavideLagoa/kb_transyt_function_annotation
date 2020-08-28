@@ -4,6 +4,8 @@ import logging
 import os
 import transyt_wrapper as tw
 from installed_clients.KBaseReportClient import KBaseReport
+import uuid
+
 #END_HEADER
 
 
@@ -63,6 +65,24 @@ class kb_transyt_function_annotation:
 
         if exit_code == 0:
             output = transyt_process.process_output()
+        elif exit_code == -3:
+
+            report = KBaseReport(self.callback_url)
+            report_params = {
+                'warnings': ["TranSyT was already executed using the provided set of parameters for the same "
+                            "database version."],
+                'workspace_name': params['workspace_name'],
+                'report_object_name': 'run_transyt_annotation_' + uuid.uuid4().hex,
+                'objects_created': []
+            }
+
+            report_info = report.create_extended_report(report_params)
+
+            output = {
+                'report_name': report_info['name'],
+                'report_ref': report_info['ref'],
+                'fbamodel_id': params['genome_id']
+            }
 
         print(os.system("ls " + self.shared_folder))
 
