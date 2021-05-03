@@ -3,3 +3,4 @@ sdk.cfg
 .DS_Store
 lib/kb_transyt_function_annotation/test_transyt.py
 lib/kb_transyt_function_annotation/__pycache__/
+.idea
